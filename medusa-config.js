@@ -23,10 +23,10 @@ try {
 }
 
 // CORS when consuming Medusa from admin
-const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001,https://serene-hamster-71174b.netlify.app";
+const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001";
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000,http://localhost:4020,https://canary-medusa-mesh-integration.netlify.app,https://medusa-mesh-integration.netlify.app";
+const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000";
 
 // Database URL (here we use a local database called medusa-development)
 const DATABASE_URL =
@@ -43,15 +43,16 @@ const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  // Uncomment to add Stripe support.
-  // You can create a Stripe account via: https://stripe.com
-  // {
-  //   resolve: `medusa-payment-stripe`,
-  //   options: {
-  //     api_key: STRIPE_API_KEY,
-  //     webhook_secret: STRIPE_WEBHOOK_SECRET,
-  //   },
-  // },
+	{
+		resolve: `medusa-file-s3`,
+		options: {
+			s3_url: process.env.S3_URL,
+			bucket: process.env.S3_BUCKET,
+			region: process.env.S3_REGION,
+			access_key_id: process.env.S3_ACCESS_KEY_ID,
+			secret_access_key: process.env.S3_SECRET_ACCESS_KEY,
+		},
+	},
 ];
 
 module.exports = {
