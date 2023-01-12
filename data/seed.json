@@ -5,7 +5,7 @@
   "users": [
     {
       "email": "admin@medusa-test.com",
-      "password": "supersecret"
+      "password": "adminUniform"
     }
   ],
   "regions": [
